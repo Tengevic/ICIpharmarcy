@@ -30,4 +30,9 @@ export class Drugservice{
 
      })
    }
+   updatedrug(data:Drug, id){
+     this.http.put(`api/update/${id}`,data).subscribe((result)=>{
+      console.log(result);
+    })
+  }
 }

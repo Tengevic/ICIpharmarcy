@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subject, Subscription } from 'rxjs';
 import { Drug } from '../shared/drug.model';
 import { Drugservice } from '../shared/drug.service';
 
@@ -7,11 +9,14 @@ import { Drugservice } from '../shared/drug.service';
   templateUrl: './drug-list.component.html',
   styleUrls: ['./drug-list.component.css']
 })
-export class DrugListComponent implements OnInit {
+export class DrugListComponent implements OnInit , OnDestroy{
 
 
   drugs: Drug[] = [];
-  constructor(private drugservice: Drugservice){
+  drugsChange = new Subject<Drug[]>();
+  subscription: Subscription;
+
+  constructor(private drugservice: Drugservice, private router: Router ){
 
   }
 
@@ -25,6 +30,12 @@ export class DrugListComponent implements OnInit {
           console.log(this.drugs);
 
         })
+        this.subscription = this.drugsChange
+        .subscribe((Drug: Drug[])=>{
+          this.drugs = Drug;
+
+        });
+
 
   }
   getDrugs(){
@@ -33,6 +44,14 @@ export class DrugListComponent implements OnInit {
 
   }
   onDelete(i:any){
+    console.log(i);
     this.drugservice.deletedrug(i);
+
+  }
+  navigate(id: number){
+    this.router.navigate(['/edit', { id: id }]);
+  }
+  ngOnDestroy(): void {
+      this.subscription.unsubscribe()
   }
 }

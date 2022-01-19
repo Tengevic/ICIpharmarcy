@@ -5,7 +5,8 @@ import { DrugsFormComponent } from './drugs-form/drugs-form.component';
 
 const routes: Routes = [
   {path: 'drugList', component: DrugListComponent},
-  {path: 'form', component: DrugsFormComponent}
+  {path: 'form', component: DrugsFormComponent},
+  {path: 'edit/:id', component: DrugsFormComponent}
 ];
 
 @NgModule({

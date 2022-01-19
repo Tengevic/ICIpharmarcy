@@ -12,8 +12,10 @@
           <p>Amount: {{drug.amount}}</p>
         </div>
         <div class="col-md-6">
-          <button class="btn btn-success">Update</button>
-          <button (click)="onDelete(i)"
+          <button class="btn btn-success"
+          (click)="navigat(drug.id)">Update</button>
+          <button (click)="onDelete(drug.id)"
+          type="submit"
           class="btn btn-danger">Delete</button>
         </div>
       </div>
